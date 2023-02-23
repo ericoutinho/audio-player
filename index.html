@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+    <div class="app">
+
+        <ul class="playlist"></ul>
+
+        <div class="player">
+            <img src="./cover/cover-mountaineer.jpg" class="player-cover">
+            <div class="player-body">
+                <div class="player-title">
+                    Artista
+                    <small>Nome da música</small>
+                </div>
+                <div class="player-time"></div>
+                <div class="player-progress">
+                    <div style="--progress: 80%;"></div>
+                </div>
+                <div class="player-controls">
+                    <button class="control" id="prev" onclick="playPrev()"><i class="fa-solid fa-backward-step"></i></button>
+                    <button class="control" id="player-play" onclick="playPause()"></button>
+                    <button class="control" id="next" onclick="playNext()"><i class="fa-solid fa-forward-step"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <audio id="audio-player"></audio>
+
+    <script src="./scripts.js"></script>
+</body>
+</html>
