@@ -5,10 +5,8 @@ const data = [
         artist: "FASSounds",
         cover: "23-51-43-941_200x200.jpg",
         file: "lofi-study-112191.mp3",
-        genre: "lofi",
-        tags: [
-            "lofi","chill","work","study"
-        ]
+        genre: "hip hop",
+        favorite: false
     },
     {
         id: "2",
@@ -16,10 +14,8 @@ const data = [
         artist: "Lofi hour",
         cover: "21-42-13-13_200x200.jpg",
         file: "empty-mind-118973.mp3",
-        genre: "lofi",
-        tags: [
-            "lofi","chill","work","study"
-        ]
+        genre: "lo-fi",
+        favorite: false
     },
     {
         id: "3",
@@ -27,10 +23,8 @@ const data = [
         artist: "SoulProdMusic",
         cover: "23-39-22-228_200x200.webp",
         file: "aesthetics-138637.mp3",
-        genre: "lofi",
-        tags: [
-            "lofi","chill","work","study"
-        ]
+        genre: "lo-fi",
+        favorite: true
     },
     {
         id: "4",
@@ -38,10 +32,8 @@ const data = [
         artist: "Lofi hour",
         cover: "21-41-57-430_200x200.webp",
         file: "sleepy-cat-118974.mp3",
-        genre: "lofi",
-        tags: [
-            "lofi","chill","work","study"
-        ]
+        genre: "folk",
+        favorite: false
     },
     {
         id: "5",
@@ -49,10 +41,8 @@ const data = [
         artist: "SoulProdMusic",
         cover: "00-37-49-501_200x200.jpg",
         file: "slomo-135807.mp3",
-        genre: "lofi",
-        tags: [
-            "lofi","chill","work","study"
-        ]
+        genre: "lo-fi",
+        favorite: true
     },
     {
         id: "6",
@@ -60,10 +50,8 @@ const data = [
         artist: "Lofi hour",
         cover: "07-58-25-941_200x200.webp",
         file: "untitled-123636.mp3",
-        genre: "lofi",
-        tags: [
-            "lofi","chill","work","study"
-        ]
+        genre: "lo-fi",
+        favorite: false
     },
     {
         id: "7",
@@ -71,10 +59,17 @@ const data = [
         artist: "DayFox",
         cover: "06-29-09-949_200x200.jpg",
         file: "sweet-love-121561.mp3",
-        genre: "lofi",
-        tags: [
-            "lofi","chill","work","study"
-        ]
+        genre: "lo-fi",
+        favorite: false
+    },
+    {
+        id: "8",
+        name: "Jazzy Hip Hop Boom Bap",
+        artist: "Music Unlimited",
+        cover: "16-09-57-489_200x200.webp",
+        file: "jazzy-hip-hop-boom-bap-111861.mp3",
+        genre: "lo-fi",
+        favorite: false
     }
 ]
 
@@ -145,20 +140,24 @@ const playPrev = () => {
 
 const renderItem = (audio, index) => {
     let item = `<li class="playlist-item">
-                <span class="playlist-index">${index + 1}</span>
-                <img src="./cover/${audio.cover}" class="playlist-cover">
-                <span class="playlist-title">
-                    ${audio.name}
-                    <small>${audio.artist}</small>
-                </span>
-                <div class="playlist-genre">
-                    <span>${audio.genre}</span>
-                </div>
-                <button class="control sm js-item-play" onclick="playItem(${index})">
-                    <i class="fa-solid fa-play" style="translate: 1px;"></i>
-                </button>
-            </li>`
+                    <span class="playlist-index">${index + 1}</span>
+                    <button class="favorite ${audio.favorite && "mark"}" onclick="setFavorite(${index})"></button>
+                    <img src="./cover/${audio.cover}" class="playlist-cover">
+                    <span class="playlist-title">
+                        ${audio.name}
+                        <small>${audio.artist}</small>
+                    </span>
+                    <div class="playlist-genre">${audio.genre}</div>
+                    <button class="control sm js-item-play" onclick="playItem(${index})">
+                        <i class="fa-solid fa-play" style="translate: 1px;"></i>
+                    </button>
+                </li>`
     return item
+}
+
+const setFavorite = (index) => {
+    data[index].favorite = !data[index].favorite
+    renderList(data)
 }
 
 const renderList = (data) => {
@@ -166,6 +165,12 @@ const renderList = (data) => {
     data.map( (audio, index) => {
         playlist.innerHTML += renderItem(audio, index)
     })
+}
+
+const getAudioProgress = () => {
+    let total = audioPlayer.duration
+    let current = audioPlayer.currentTime
+    return Math.floor((100 * current) / total) + "%"
 }
 
 const getAudioTime = () => {
@@ -179,6 +184,7 @@ const getAudioTime = () => {
 
 let audioInterval = setInterval( () => {
     document.querySelector(".player-time").textContent = getAudioTime()
+    document.querySelector(".player-progress").style.setProperty('--progress', getAudioProgress())
 }, 1000)
 
 

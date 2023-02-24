@@ -6,14 +6,23 @@
 
 :root {
 
+    --c-background: #2e2e2e;
+    --c-background-light: #3d3d3d;
+    --c-background-hover: #4e4e4e;
+    --c-background-active: #5f5f5f;
+
+    --c-malachite: #1dd75e;
+
+    --c-text-light: #F5E9CF;
+
     --c-background-dark: #151719;
-    --c-background: #4D455D;
+    /* --c-background: #4D455D;
     --c-background-light: #5d556d;
     --c-background-hover: #625a74;
     --c-background-active: #70697e;
     --c-principal: #E96479;
     --c-principal-light: #f88294;
-    --c-secundary: #7DB9B6;
+    --c-secundary: #7DB9B6; */
     --c-terciary: #F5E9CF; 
 
 }
@@ -34,9 +43,9 @@ html {
 body {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* font-family: "Open Sans", sans-serif; */
     font-family: "Barlow", sans-serif;
     background: var(--c-background-dark);
     color: var(--c-terciary);
@@ -48,6 +57,10 @@ img {
 }
 
 
+.logo {
+    width: 110px;
+    margin-bottom: 1.25rem;
+}
 
 .app {
     display: flex;
@@ -57,6 +70,7 @@ img {
     border: 1px solid var(--c-background-light);
     border-radius: 4px;
     overflow: hidden;
+    margin-bottom: 1rem;
 }
 
 
@@ -113,19 +127,46 @@ img {
     opacity: .7;
 }
 
-.playlist-genre span {
+.playlist-genre {
     font-size: .75rem;
-    padding: .25rem .5rem;
-    background-color: var(--c-background);
+    text-transform: uppercase;
     color: var(--c-terciary);
-    border-radius: 5px;
 }
 
 .playlist-genre {
     flex: 0 0 100px;
 }
 
+.favorite {
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
 
+.favorite::before {
+    content: "\f005";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 800;
+    font-size: .9rem;
+    color: transparent;
+}
+
+.playlist-item:hover .favorite:before {
+    color: var(--c-background);
+}
+
+.favorite.mark::before {
+    content: "\f005";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 800;
+    font-size: .9rem;
+    color: var(--c-terciary) !important;
+}
 
 
 
@@ -169,16 +210,21 @@ img {
 }
 
 .player-progress {
+    --progress: 0;
     height: 4px;
     border-radius: 2px;
-    background-color: var(--c-principal-light);
+    background-color: var(--c-background-active);
+    border: none;
     overflow: hidden;
+    cursor: pointer;
 }
 
-.player-progress div {
-    background-color: var(--c-principal);
-    height: 4px;
+.player-progress::before {
+    content: '';
+    display: block;
+    background-color: var(--c-malachite);
     width: var(--progress);
+    height: 4px;
 }
 
 
@@ -238,4 +284,8 @@ img {
 .js-active .control.sm {
     pointer-events: none;
     background-color: var(--c-background-light);
+}
+
+footer {
+    font-size: .85rem;
 }
